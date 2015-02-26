@@ -55,7 +55,7 @@
 				$('body').css('background', 'radial-gradient(' + rgb(r, g, b) + ', black 170%)');
 				// $('#clock').css('color', rgba(comp(r), comp(g), comp(b), 0.6));
 
-				$('#hours').text(hours);
+				$('#hours').text(pad2(hours));
 				$('#mins').text(pad2(mins));
 				$('#secs').text(pad2(secs));
 			}
