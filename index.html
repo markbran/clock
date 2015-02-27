@@ -61,8 +61,10 @@
 			}
 
 			function updater(){
+				var wait;
 				updateClock();
-				setTimeout(updater, 100);
+				wait = 1000 - (new Date().getMilliseconds());
+				setTimeout(updater, wait);
 			}
 
 			$(function() {
