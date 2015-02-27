@@ -4,22 +4,21 @@
 		<style type="text/css">
 			#clock_holder {
 				height: 100%;
-			    width: 100%;
-			    display: table;
-				
+				width: 100%;
+				display: table;
 			}
 			#clock {
 				display: table-cell;
-			    height: 100%;
-			    vertical-align: middle;
-			    text-align: center;
+				height: 100%;
+				vertical-align: middle;
+				text-align: center;
 				font-size: 13em;
 				font-family: 'Open Sans', sans-serif;
 				color: rgba(255,255,255,0.65);
 				text-shadow: 0px 0px 50px rgba(0,0,0,0.6);
 			}
 			#clock span {
-			    font-weight: 700;
+				font-weight: 700;
 			}
 		</style>
 		<link href='http://fonts.googleapis.com/css?family=Open+Sans' rel='stylesheet' type='text/css'>
@@ -34,11 +33,9 @@
 
 		<script type="text/javascript">
 
-			comp = function(a){return 255 - a;}
-			rgb = function(r,g,b){return 'rgb('+ r + ',' + g + ',' + b + ')';}
-			rgba = function(r,g,b,a){return 'rgba('+ r + ',' + g + ',' + b + ',' + a + ')';}
-			pad2 = function(n){return (n < 10 ? '0' : '') + n;}
-			toColor = function(n){return n * 255 | 0;}
+			rgb = function(r,g,b) {return 'rgb('+ r + ',' + g + ',' + b + ')';}
+			pad2 = function(n) {return (n < 10 ? '0' : '') + n;}
+			toColor = function(n) {return n * 255 | 0;}
 
 			function updateClock() {
 				var date, secs, mins, hours, r, g, b;
@@ -53,7 +50,6 @@
 				b = toColor(secs / 59);
 
 				$('body').css('background', 'radial-gradient(' + rgb(r, g, b) + ', black 170%)');
-				// $('#clock').css('color', rgba(comp(r), comp(g), comp(b), 0.6));
 
 				$('#hours').text(pad2(hours));
 				$('#mins').text(pad2(mins));
@@ -61,15 +57,12 @@
 			}
 
 			function updater(){
-				var wait;
 				updateClock();
-				wait = 1000 - (new Date().getMilliseconds());
-				setTimeout(updater, wait);
+				setTimeout(updater, 1000 - (new Date().getMilliseconds()));
 			}
 
-			$(function() {
-				updater();
-			});
+			$(updater);
+
 		</script>
 	</body>
 </html>
