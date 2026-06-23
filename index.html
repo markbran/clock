@@ -1,68 +1,73 @@
-<html>
-	<head>
-		<title>Clock</title>
-		<style type="text/css">
-			#clock_holder {
-				height: 100%;
-				width: 100%;
-				display: table;
-			}
-			#clock {
-				display: table-cell;
-				height: 100%;
-				vertical-align: middle;
-				text-align: center;
-				font-size: 13em;
-				font-family: 'Open Sans', sans-serif;
-				color: rgba(255,255,255,0.65);
-				text-shadow: 0px 0px 50px rgba(0,0,0,0.6);
-			}
-			#clock span {
-				font-weight: 700;
-			}
-		</style>
-		<link href='https://fonts.googleapis.com/css?family=Open+Sans' rel='stylesheet' type='text/css'>
-		<script src="https://ajax.googleapis.com/ajax/libs/jquery/1.11.2/jquery.min.js"></script>
-	</head>
-	<body>
-		<div id="clock_holder">
-			<div id="clock">
-				<span id="hours">0</span>:<span id="mins">00</span>:<span id="secs">00</span>
-			</div>
-		</div>
+<!DOCTYPE html>
+<html lang="en">
 
-		<script type="text/javascript">
+<head>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <title>Clock</title>
+    <link href="https://fonts.googleapis.com/css?family=Open+Sans:700" rel="stylesheet">
+    <style>
+        html,
+        body {
+            height: 100%;
+            margin: 0;
+        }
 
-			rgb = function(r,g,b) {return 'rgb('+ r + ',' + g + ',' + b + ')';}
-			pad2 = function(n) {return (n < 10 ? '0' : '') + n;}
-			toColor = function(n) {return n * 255 | 0;}
+        #clock_holder {
+            height: 100%;
+            width: 100%;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+        }
 
-			function updateClock() {
-				var date, secs, mins, hours, r, g, b;
+        #clock {
+            font-size: min(13em, 18vw);
+            font-family: 'Open Sans', sans-serif;
+            font-weight: 700;
+            color: rgba(255, 255, 255, 0.65);
+            text-shadow: 0 0 50px rgba(0, 0, 0, 0.6);
+            white-space: nowrap;
+        }
+    </style>
+</head>
 
-				date = new Date();
-				secs = date.getSeconds();
-				mins = date.getMinutes();
-				hours = date.getHours();
+<body>
+    <div id="clock_holder">
+        <div id="clock">
+            <span id="hours">00</span>:<span id="mins">00</span>:<span id="secs">00</span>
+        </div>
+    </div>
 
-				r = toColor(hours / 23);
-				g = toColor(mins / 59);
-				b = toColor(secs / 59);
+    <script>
+        const pad2 = (n) => String(n).padStart(2, '0');
+        const toColor = (n) => Math.round(n * 255);
 
-				$('body').css('background', 'radial-gradient(' + rgb(r, g, b) + ', black 170%)');
+        const hoursEl = document.getElementById('hours');
+        const minsEl = document.getElementById('mins');
+        const secsEl = document.getElementById('secs');
 
-				$('#hours').text(pad2(hours));
-				$('#mins').text(pad2(mins));
-				$('#secs').text(pad2(secs));
-			}
+        function updateClock() {
+            const date = new Date();
+            const hours = date.getHours();
+            const mins = date.getMinutes();
+            const secs = date.getSeconds();
 
-			function updater(){
-				updateClock();
-				setTimeout(updater, 1000 - (new Date().getMilliseconds()));
-			}
+            const r = toColor(hours / 23);
+            const g = toColor(mins / 59);
+            const b = toColor(secs / 59);
 
-			$(updater);
+            document.body.style.background = `radial-gradient(rgb(${r},${g},${b}), black 170%)`;
 
-		</script>
-	</body>
+            hoursEl.textContent = pad2(hours);
+            minsEl.textContent = pad2(mins);
+            secsEl.textContent = pad2(secs);
+
+            setTimeout(updateClock, 1000 - date.getMilliseconds());
+        }
+
+        updateClock();
+    </script>
+</body>
+
 </html>
